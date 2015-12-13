@@ -1,6 +1,7 @@
 package au.com.adilamtech.app.arcus;
 
 import android.content.Intent;
+import android.drm.DrmStore;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -26,7 +27,13 @@ import com.atid.app.rfid.view.base.AccessActivity;
 import com.atid.app.rfid.view.base.ActionActivity;
 import com.atid.lib.dev.ATRfidReader;
 import com.atid.lib.dev.rfid.exception.ATRfidReaderException;
+import com.atid.lib.dev.rfid.param.SelectionMask6c;
 import com.atid.lib.dev.rfid.type.ActionState;
+import com.atid.lib.dev.rfid.type.BankType;
+import com.atid.lib.dev.rfid.type.InventorySession;
+import com.atid.lib.dev.rfid.type.InventoryTarget;
+import com.atid.lib.dev.rfid.type.MaskActionType;
+import com.atid.lib.dev.rfid.type.MaskTargetType;
 import com.atid.lib.dev.rfid.type.ResultCode;
 import com.atid.lib.dev.rfid.type.TagType;
 import com.atid.lib.util.SysUtil;
@@ -41,6 +48,7 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 
 
 	private static final int UPDATE_TIME = 500;
+    private static final int ITEM_ID_START_INDEX = 4;
 
 	// ------------------------------------------------------------------------
 	// Member Variable
@@ -55,6 +63,7 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 
 	private Thread mThread;
 	private boolean mIsAliveThread;
+    private String mItemIdInHex;
 
 	// ------------------------------------------------------------------------
 	// Constructor
@@ -71,6 +80,20 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		mThread = null;
 		mIsAliveThread = false;
 	}
+
+
+
+    private String asciiToHex(String ascii) {
+
+        StringBuilder hex = new StringBuilder();
+
+        for (int i = 0; i < ascii.length(); i++) {
+
+            hex.append(Integer.toHexString(ascii.charAt(i)));
+        }
+
+        return hex.toString();
+    }
 
 	// ------------------------------------------------------------------------
 	// Activity Event Handler
@@ -183,23 +206,42 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		Log.i(TAG, String.format(Locale.US, "EVENT. onReaderActionchanged(%s)", action));
 	}
 
+
 	@Override
 	public void onReaderReadTag(ATRfidReader reader, final String tag, final float rssi) {
 
-		/*runOnUiThread(new Runnable() {
+        String session;
+        String target;
 
-			@Override
-			public void run() {
-				synchronized (adpTags) {
+
+        try {
+            session = reader.getInventorySession().toString();
+            target = reader.getInventoryTarget().toString();
+
+        } catch(Exception e) {
+            session = "Null";
+            target = "Null";
+        }
+
+		runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+				/*synchronized (adpTags) {
 					adpTags.addItem(tag, rssi);
 				}
-				txtCount.setText(String.format(Locale.US, "%d", adpTags.getCount()));
-				playSuccess();
-			}
-			
-		});*/
+				txtCount.setText(String.format(Locale.US, "%d", adpTags.getCount()));*/
+                String itemIdInTag = tag.substring(ITEM_ID_START_INDEX, ITEM_ID_START_INDEX + mItemIdInHex.length());
 
-		Log.i(TAG, String.format(Locale.US, "EVENT. onReaderReadTag([%s], %.2f)", tag, rssi));
+                if( itemIdInTag.equals(mItemIdInHex) ) {
+                    playSuccess();
+                    Log.i(TAG, String.format(Locale.US, "EVENT. onReaderReadTag(playSuccess(%s)", itemIdInTag));
+                }
+            }
+
+        });
+
+		Log.i(TAG, String.format(Locale.US, "EVENT. onReaderReadTag([%s], %.2f, %s, %s)", tag, rssi, session, target));
 	}
 	
 	// ------------------------------------------------------------------------
@@ -211,6 +253,7 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 
 		ResultCode res;
 		TagType tagType = getTagType();
+        mItemIdInHex = asciiToHex(inputItemId.getText().toString());
 
 		enableWidgets(false);
 		startUpdateList();
@@ -280,6 +323,7 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		super.initWidgets();
 
         inputItemId = (EditText) findViewById(R.id.itemId_input);
+        inputItemId.setText("000004");    //E20068060F017B0F
         finding_progress = (TextView) findViewById(R.id.finding_progress);
         finding_progress.setMovementMethod(new ScrollingMovementMethod());
 
@@ -290,7 +334,7 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		Log.i(TAG, "INFO. initWidgets()");
 	}
 
-	// Eanble Activity Widgets
+	// Enable Activity Widgets
 	@Override
 	protected void enableWidgets(boolean enabled) {
 		super.enableWidgets(enabled);
@@ -313,6 +357,11 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		// Get Report RSSI
 		try {
 			mIsReportRssi = mReader.getReportRssi();
+            /*SelectionMask6c mask = new SelectionMask6c(MaskTargetType.S2, MaskActionType.Assert_Deassert, BankType.EPC, 8, 8, "AA",  false);
+            mReader.setSelectionMask6c(0, mask);
+            mReader.setUseSelectionMask(true);*/
+            mReader.setInventoryTarget(InventoryTarget.All);
+
 		} catch (ATRfidReaderException e) {
 			Log.e(TAG, String.format(Locale.US, "ERROR. initReader() - Failed to get report RSSI [%s]", e.getCode()),
 					e);
