@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="atid.system.ctrl">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/atid.system.ctrl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

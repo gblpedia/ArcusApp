@@ -1,7 +1,11 @@
 package au.com.adilamtech.app.arcus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.drm.DrmStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -38,9 +42,11 @@ import com.atid.lib.dev.rfid.type.ResultCode;
 import com.atid.lib.dev.rfid.type.TagType;
 import com.atid.lib.util.SysUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class FindTagActivity extends ActionActivity implements OnCheckedChangeListener {
+public class FindTagActivity extends ActionActivity implements OnCheckedChangeListener, DialogInterface.OnClickListener, TextWatcher {
 
 	private static final int READ_MEMORY_ACTIVITY = 1;
 	private static final int WRITE_MEMORY_ACTIVITY = 2;
@@ -57,13 +63,18 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 	private EditText inputItemId;
     private TextView finding_progress;
 	private Button btnFind;
+	private Button btnFindNext;
+    private Button btnFindReset;
 
     private boolean isContinuous = true;
 	private boolean mIsReportRssi;
+	private boolean mIsStarted = false;
 
 	private Thread mThread;
 	private boolean mIsAliveThread;
-    private String mItemIdInHex;
+	private List<Tag> mTags;
+	private int currentTagIdx = 0;
+
 
 	// ------------------------------------------------------------------------
 	// Constructor
@@ -98,6 +109,55 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 	// ------------------------------------------------------------------------
 	// Activity Event Handler
 	// ------------------------------------------------------------------------
+
+
+
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                finding_progress.setText( String.format( Locale.US, "%s: %s", getResources().getString(R.string.label_finding), mTags.get(currentTagIdx).getItemId() ) );
+                break;
+        }
+    }
+
+
+
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+
+		switch (v.getId()) {
+			case R.id.action_find_next:
+
+				try {
+					++currentTagIdx;
+					//mItemIdInHex = mTags.get(currentTagIdx).getItemIdHex();
+                    finding_progress.setText( String.format( Locale.US, "%s: %s", getResources().getString(R.string.label_finding), mTags.get(currentTagIdx).getItemId() ) );
+
+				} catch (IndexOutOfBoundsException ex) {
+					currentTagIdx = 0;
+					//mItemIdInHex = mTags.get(currentTagIdx).getItemIdHex();
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+					builder.setMessage(getResources().getString(R.string.alert_end_of_list))
+							.setCancelable(false)
+							.setPositiveButton("OK", this);
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+				break;
+
+            case R.id.action_finding_reset:
+                inputItemId.setText("");
+                currentTagIdx = 0;
+                mIsStarted = false;
+                break;
+		}
+
+	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -231,6 +291,7 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 					adpTags.addItem(tag, rssi);
 				}
 				txtCount.setText(String.format(Locale.US, "%d", adpTags.getCount()));*/
+                String mItemIdInHex = mTags.get(currentTagIdx).getItemIdHex();
                 String itemIdInTag = tag.substring(ITEM_ID_START_INDEX, ITEM_ID_START_INDEX + mItemIdInHex.length());
 
                 if( itemIdInTag.equals(mItemIdInHex) ) {
@@ -253,56 +314,74 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 
 		ResultCode res;
 		TagType tagType = getTagType();
-        mItemIdInHex = asciiToHex(inputItemId.getText().toString());
 
-		enableWidgets(false);
-		startUpdateList();
 
-		if (isContinuous) {
-			// Multi Reading
-			switch (tagType) {
-			case Tag6C:
-				if ((res = mReader.inventory6cTag()) != ResultCode.NoError) {
-					Log.e(TAG, String.format(Locale.US, "ERROR. startAction() - Failed to start inventory 6C tag [%s]",
-							res));
-					stopUpdateList();
-					enableWidgets(true);
-					return;
-				}
-				break;
-			case Tag6B:
-				if ((res = mReader.inventory6bTag()) != ResultCode.NoError) {
-					Log.e(TAG, String.format(Locale.US, "ERROR. startAction() - Failed to start inventory 6B tag [%s]",
-							res));
-					stopUpdateList();
-					enableWidgets(true);
-					return;
-				}
-				break;
+		if(!mIsStarted && !(inputItemId.getText().toString().isEmpty())) {
+            currentTagIdx = 0;
+			String[] ids = inputItemId.getText().toString().split(" ");
+			mTags = new ArrayList<Tag>();
+
+			for (int i = 0; i < ids.length; i++) {
+				mTags.add( new Tag(ids[i].toUpperCase()) );
 			}
-		} else {
-			// Single Reading
-			switch (tagType) {
-			case Tag6C:
-				if ((res = mReader.readEpc6cTag()) != ResultCode.NoError) {
-					Log.e(TAG,
-							String.format(Locale.US, "ERROR. startAction() - Failed to start read 6C tag [%s]", res));
-					stopUpdateList();
-					enableWidgets(true);
-					return;
-				}
-				break;
-			case Tag6B:
-				if ((res = mReader.readEpc6bTag()) != ResultCode.NoError) {
-					Log.e(TAG,
-							String.format(Locale.US, "ERROR. startAction() - Failed to start read 6B tag [%s]", res));
-					stopUpdateList();
-					enableWidgets(true);
-					return;
-				}
-				break;
-			}
+
+			//mItemIdInHex = mTags.get(currentTagIdx).getItemIdHex();
+			finding_progress.setText( String.format( Locale.US, "%s: %s", getResources().getString(R.string.label_finding), mTags.get(currentTagIdx).getItemId() ) );
+
+			mIsStarted = true;
 		}
+
+        if(!(inputItemId.getText().toString().isEmpty())) {
+            enableWidgets(false);
+            startUpdateList();
+
+            if (isContinuous) {
+                // Multi Reading
+                switch (tagType) {
+                    case Tag6C:
+                        if ((res = mReader.inventory6cTag()) != ResultCode.NoError) {
+                            Log.e(TAG, String.format(Locale.US, "ERROR. startAction() - Failed to start inventory 6C tag [%s]",
+                                    res));
+                            stopUpdateList();
+                            enableWidgets(true);
+                            return;
+                        }
+                        break;
+                    case Tag6B:
+                        if ((res = mReader.inventory6bTag()) != ResultCode.NoError) {
+                            Log.e(TAG, String.format(Locale.US, "ERROR. startAction() - Failed to start inventory 6B tag [%s]",
+                                    res));
+                            stopUpdateList();
+                            enableWidgets(true);
+                            return;
+                        }
+                        break;
+                }
+            } else {
+                // Single Reading
+                switch (tagType) {
+                    case Tag6C:
+                        if ((res = mReader.readEpc6cTag()) != ResultCode.NoError) {
+                            Log.e(TAG,
+                                    String.format(Locale.US, "ERROR. startAction() - Failed to start read 6C tag [%s]", res));
+                            stopUpdateList();
+                            enableWidgets(true);
+                            return;
+                        }
+                        break;
+                    case Tag6B:
+                        if ((res = mReader.readEpc6bTag()) != ResultCode.NoError) {
+                            Log.e(TAG,
+                                    String.format(Locale.US, "ERROR. startAction() - Failed to start read 6B tag [%s]", res));
+                            stopUpdateList();
+                            enableWidgets(true);
+                            return;
+                        }
+                        break;
+                }
+            }
+
+        }
 		Log.i(TAG, "INFO. startAction()");
 	}
 
@@ -323,13 +402,21 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		super.initWidgets();
 
         inputItemId = (EditText) findViewById(R.id.itemId_input);
-        inputItemId.setText("000004");    //E20068060F017B0F
+        inputItemId.setText("Z0000000 000004");    //E20068060F017B0F
+        inputItemId.addTextChangedListener(this);
+
         finding_progress = (TextView) findViewById(R.id.finding_progress);
         finding_progress.setMovementMethod(new ScrollingMovementMethod());
 
 		// Action Button
 		btnFind = (Button) findViewById(R.id.action);
 		btnFind.setOnClickListener(this);
+
+		btnFindNext = (Button) findViewById(R.id.action_find_next);
+		btnFindNext.setOnClickListener(this);
+
+        btnFindReset = (Button) findViewById(R.id.action_finding_reset);
+        btnFindReset.setOnClickListener(this);
 
 		Log.i(TAG, "INFO. initWidgets()");
 	}
@@ -347,6 +434,14 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 			btnFind.setText(R.string.action_stop);
 		}
 		btnFind.setEnabled(enabled);
+
+		if(mIsStarted) {
+			btnFindNext.setEnabled(true);
+		} else {
+			btnFindNext.setEnabled(false);
+		}
+
+        btnFindReset.setEnabled(true);
 	}
 
 	// Initialize Reader
@@ -432,4 +527,27 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		}
 
 	};
+
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        mIsStarted = false;
+        btnFindNext.setEnabled(false);
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        mIsStarted = false;
+        btnFindNext.setEnabled(false);
+    }
 }
+
+
+
+
+

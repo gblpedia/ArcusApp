@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="atid.system.device">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/atid.system.device.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
