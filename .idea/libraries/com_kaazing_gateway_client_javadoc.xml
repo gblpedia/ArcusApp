@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.kaazing.gateway.client-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/com.kaazing.gateway.client-javadoc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

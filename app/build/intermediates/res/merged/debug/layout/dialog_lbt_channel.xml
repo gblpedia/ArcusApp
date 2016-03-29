@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+		
+	<CheckBox android:id="@+id/channel0"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel0" />
+	
+	<CheckBox android:id="@+id/channel1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel1" />
+	
+	<CheckBox android:id="@+id/channel2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel2" />
+	
+	<CheckBox android:id="@+id/channel3"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel3" />
+	
+	<CheckBox android:id="@+id/channel4"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel4" />
+	
+	<CheckBox android:id="@+id/channel5"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel5" />
+	
+	<CheckBox android:id="@+id/channel6"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel6" />
+	
+	<CheckBox android:id="@+id/channel7"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel7" />
+	
+	<CheckBox android:id="@+id/channel8"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textSize="18sp"
+	    android:text="@string/channel8" />
+
+</LinearLayout>

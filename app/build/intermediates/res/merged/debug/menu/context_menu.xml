@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/read_memory"
+        android:title="@string/menu_read" />
+    <item android:id="@+id/write_memory"
+        android:title="@string/menu_write" />
+    <item android:id="@+id/lock_memory"
+        android:title="@string/menu_lock" />
+
+</menu>

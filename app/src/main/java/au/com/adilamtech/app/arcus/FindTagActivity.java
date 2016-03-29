@@ -43,6 +43,7 @@ import com.atid.lib.dev.rfid.type.TagType;
 import com.atid.lib.util.SysUtil;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -93,6 +94,58 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 	}
 
 
+	private byte[] hexStringToByteArray(String s) {
+		byte[] b = new byte[s.length() / 2];
+		for (int i = 0; i < b.length; i++) {
+			int index = i * 2;
+			int v = Integer.parseInt(s.substring(index, index + 2), 16);
+			b[i] = (byte) v;
+		}
+		return b;
+	}
+
+	private BitSet longToBitSet(long value) {
+		BitSet bits = new BitSet();
+		int index = 0;
+		while (value != 0L) {
+			if (value % 2L != 0) {
+				bits.set(index);
+			}
+			++index;
+			value = value >>> 1;
+		}
+		return bits;
+	}
+
+	private long bitsetToLong(BitSet bits) {
+		long value = 0L;
+		for (int i = 0; i < bits.length(); ++i) {
+			value += bits.get(i) ? (1L << i) : 0L;
+		}
+		return value;
+	}
+
+	private BitSet fromByteArray(byte[] bytes) {
+		BitSet bits = new BitSet();
+		for (int i = 0; i < bytes.length * 8; i++) {
+			if ((bytes[bytes.length - i / 8 - 1] & (1 << (i % 8))) > 0) {
+				bits.set(i);
+			}
+		}
+		return bits;
+	}
+
+
+	private int lengthOfItemID(String pc) {
+		int length = 0;
+		byte[] pcBytes =  hexStringToByteArray(pc.substring(0, ITEM_ID_START_INDEX));
+		BitSet pcBitSet = fromByteArray(pcBytes);
+		BitSet lenBitSet = pcBitSet.get(11, 16);
+
+		length = (int) bitsetToLong(lenBitSet);
+
+		return length * 4;
+	}
 
     private String asciiToHex(String ascii) {
 
@@ -291,8 +344,12 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 					adpTags.addItem(tag, rssi);
 				}
 				txtCount.setText(String.format(Locale.US, "%d", adpTags.getCount()));*/
+
                 String mItemIdInHex = mTags.get(currentTagIdx).getItemIdHex();
-                String itemIdInTag = tag.substring(ITEM_ID_START_INDEX, ITEM_ID_START_INDEX + mItemIdInHex.length());
+
+				int length = lengthOfItemID(tag.substring(0, ITEM_ID_START_INDEX));
+				String itemIdInTag = tag.substring(ITEM_ID_START_INDEX, ITEM_ID_START_INDEX + length);
+
 
                 if( itemIdInTag.equals(mItemIdInHex) ) {
                     playSuccess();
@@ -402,7 +459,7 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		super.initWidgets();
 
         inputItemId = (EditText) findViewById(R.id.itemId_input);
-        inputItemId.setText("Z0000000 000004");    //E20068060F017B0F
+        inputItemId.setText("");    //Z0000000 000004
         inputItemId.addTextChangedListener(this);
 
         finding_progress = (TextView) findViewById(R.id.finding_progress);
@@ -429,19 +486,23 @@ public class FindTagActivity extends ActionActivity implements OnCheckedChangeLi
 		if (mReader.getAction() == ActionState.Stop) {
 
 			btnFind.setText(R.string.action_find_tag);
+			if(mIsStarted) {
+				btnFindNext.setEnabled(true);
+			} else {
+				btnFindNext.setEnabled(false);
+			}
+
 		} else {
 
 			btnFind.setText(R.string.action_stop);
-		}
-		btnFind.setEnabled(enabled);
 
-		if(mIsStarted) {
-			btnFindNext.setEnabled(true);
-		} else {
-			btnFindNext.setEnabled(false);
+			if(mIsStarted) {
+				btnFindNext.setEnabled(false);
+			}
 		}
 
-        btnFindReset.setEnabled(true);
+		btnFind.setEnabled(true);
+		btnFindReset.setEnabled(true);
 	}
 
 	// Initialize Reader

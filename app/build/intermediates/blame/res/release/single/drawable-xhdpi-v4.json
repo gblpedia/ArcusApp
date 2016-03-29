@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_lock.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable-xhdpi/ic_lock.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_inventory.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable-xhdpi/ic_inventory.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_read.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable-xhdpi/ic_read.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_write.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable-xhdpi/ic_write.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_launcher.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_option.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable-xhdpi/ic_option.png"
+    }
+]

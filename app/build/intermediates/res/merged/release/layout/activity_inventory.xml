@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+    
+	<!-- Tag List -->
+	<ListView android:id="@+id/tag_list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+			  android:background="@drawable/border"
+	    android:padding="5dp"
+	    android:transcriptMode="alwaysScroll"
+			  android:layout_weight="11"/>
+	
+	<View android:layout_width="fill_parent" android:layout_height="5dp" />
+	
+	<!-- Inventory Options -->
+	<TextView
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="5dp"
+	    android:text="@string/inventory_options"
+	    android:textSize="16sp"
+	    android:textColor="@color/label_color"
+		android:visibility="gone"/>
+	
+	<ScrollView
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="2"
+	    android:background="@drawable/border"
+	    android:padding="5dp" >
+	    
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+			
+			<!-- Inventory Option -->
+			<LinearLayout
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:paddingTop="5dp"
+			    android:orientation="horizontal"
+				android:visibility="gone">
+		    
+			    <!-- Display PC Value -->
+			    <CheckBox android:id="@+id/display_pc"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:enabled="false"
+			        android:textColor="@color/label_color"
+			        android:text="@string/display_pc" />
+				    
+			    <View android:layout_width="10dp" android:layout_height="fill_parent" />
+			    	    
+			    <!-- Continue Mode -->
+			    <CheckBox android:id="@+id/continue_mode"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+				    android:enabled="false"
+			        android:textColor="@color/label_color"
+			        android:text="@string/continuous_mode" />
+			    	    
+			</LinearLayout>
+			
+		    <View android:layout_width="fill_parent" android:layout_height="1dp" android:background="@color/split_line_color"
+				  android:visibility="gone"/>
+			
+			<LinearLayout
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"
+				android:visibility="gone">
+		    
+			    <!-- Display RSSI Value -->
+			    <CheckBox android:id="@+id/report_rssi"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:enabled="false"
+			        android:textColor="@color/label_color"
+			        android:text="@string/report_rssi" />
+			    	    
+			</LinearLayout>
+			
+		    <View android:layout_width="fill_parent" android:layout_height="1dp" android:background="@color/split_line_color"
+				  android:visibility="gone"/>
+				
+			<!-- Power Gain -->
+			<LinearLayout
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:paddingTop="5dp"
+			    android:orientation="horizontal" >
+			    
+			    <TextView
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="5"
+			        android:layout_gravity="center_vertical"
+			        android:text="@string/power_gain"
+			        android:textColor="@color/label_color"
+			        android:textSize="16sp" />
+			    
+			    <View android:layout_width="5dp" android:layout_height="40sp" />
+			    
+			    <Spinner android:id="@+id/power_gain"
+			        android:layout_width="0dp"
+			        android:layout_height="40sp"
+			        android:layout_weight="7"
+			        android:enabled="false" />
+			    
+			</LinearLayout>
+			
+		    <View android:layout_width="fill_parent" android:layout_height="1dp" android:background="@color/split_line_color"
+				  android:visibility="gone"/>
+			
+		    <!-- Operation Time -->
+		    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+				android:visibility="gone">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="5"
+                    android:text="@string/operation_time"
+                    android:textColor="@color/label_color"
+                    android:textSize="16sp" />
+			    
+			    <View android:layout_width="5dp" android:layout_height="40sp" />
+
+                <LinearLayout
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+                    android:layout_weight="7"
+	                android:gravity="center_vertical"
+	                android:orientation="horizontal" >
+	                
+	                <EditText
+	                    android:id="@+id/operation_time"
+	                    android:layout_width="0dp"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:digits="0123456789"
+	                    android:inputType="number"
+	                    tools:ignore="LabelFor,NestedWeights" />
+	                
+	                <TextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_gravity="center_vertical"
+	                    android:text="@string/unit_ms"
+	                    android:textColor="@color/label_color"
+	                    android:textSize="16sp" />
+                    
+                </LinearLayout>
+                
+            </LinearLayout>
+						
+			<View android:id="@+id/tag_type_splitor"
+			    android:layout_width="fill_parent" android:layout_height="1dp" android:background="@color/split_line_color"
+				  android:visibility="gone"/>
+							        			
+			<!-- Tag Type -->
+			<LinearLayout android:id="@+id/tag_type_layout"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:paddingTop="5dp"
+			    android:orientation="horizontal"
+						  android:visibility="gone">
+			    
+			    <TextView
+			        android:layout_width="0dp"
+			        android:layout_height="wrap_content"
+			        android:layout_gravity="center_vertical"
+			        android:layout_weight="1"
+			        android:text="@string/tag_type"
+			        android:textColor="@color/label_color"
+			        android:textSize="16sp" />
+			    
+			    <View android:layout_width="5dp" android:layout_height="40sp" />
+			    			    
+			    <Spinner android:id="@+id/tag_type"
+			        android:layout_width="0dp"
+			        android:layout_height="40sp"
+			        android:layout_weight="2"
+			        android:enabled="false" />
+			    	    
+			</LinearLayout>
+				        	        
+	    </LinearLayout>
+	    
+	</ScrollView>
+	
+	<View android:id="@+id/report_rssi_line" android:layout_width="fill_parent" android:layout_height="5dp" />
+	
+	<!-- Controls -->
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+	    
+	    <!-- Tag Count -->
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:padding="3dp"
+	        android:orientation="vertical" >
+	        
+	        <TextView 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_vertical|center"
+	            android:text="@string/tag_count"
+	            android:textSize="20sp"
+	            android:textColor="@color/label_color" />
+	        
+	        <TextView android:id="@+id/tag_count"
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+	            android:gravity="center_vertical|center"
+	            android:background="@drawable/border"
+	            android:textColor="@color/tag_count_color"
+	            android:textSize="42sp"
+	            android:textStyle="bold" />
+	        
+	    </LinearLayout>
+			    
+		<View android:layout_width="5dp" android:layout_height="40sp" />
+	    	    	    	    
+	    <!-- Buttons -->
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="2.2"
+	        android:orientation="vertical" >
+	        
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal" >
+	            
+	            <Button android:id="@+id/action"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+				    android:enabled="false"
+	                android:textSize="18sp"
+	                android:text="@string/action_inventory" />
+	            	            
+	        </LinearLayout>
+	        
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal" >
+	        	
+	            <Button android:id="@+id/clear"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+				    android:enabled="false"
+	                android:textSize="18sp"
+	                android:text="@string/action_clear"
+					/>
+
+				<Button android:id="@+id/save"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:enabled="false"
+					android:textSize="18sp"
+					android:text="@string/action_save"
+					/>
+	            
+	            <Button android:id="@+id/mask"
+	                android:layout_width="0dp"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+				    android:enabled="false"
+	                android:textSize="18sp"
+	                android:text="@string/action_mask"
+						android:visibility="gone"/>
+	            	            
+	        </LinearLayout>
+	        	        
+	    </LinearLayout>
+
+	</LinearLayout>
+	
+</LinearLayout>

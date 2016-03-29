@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/jniLibs"><file name="armeabi/libserial_port.so" path="/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/jniLibs/armeabi/libserial_port.so"/><file name="armeabi/libsystem_control.so" path="/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/jniLibs/armeabi/libsystem_control.so"/></source></dataSet><dataSet config="debug"><source path="/Users/Gabriel/Workspace/Android/ArcusApp/app/src/debug/jniLibs"/></dataSet></merger>

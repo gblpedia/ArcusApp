@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.kaazing.gateway.jms.client">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/com.kaazing.gateway.jms.client.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

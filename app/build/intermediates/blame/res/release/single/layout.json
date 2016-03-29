@@ -1,0 +1,70 @@
+[
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/dialog_lbt_channel.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/dialog_lbt_channel.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/dialog_mask.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/dialog_mask.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/item_dialog_list.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/item_dialog_list.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/item_tag_list.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/item_tag_list.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_selection_mask_6c.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_selection_mask_6c.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/item_selection_mask_6c.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/item_selection_mask_6c.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/item_spinner_dialog.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/item_spinner_dialog.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_find_tag.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_find_tag.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/dialog_selection_mask_6c.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/dialog_selection_mask_6c.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_write_memory.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_write_memory.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_read_memory.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_read_memory.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_main.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_option.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_option.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/dialog_password.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/dialog_password.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_lock_memory.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_lock_memory.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/activity_inventory.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/activity_inventory.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/layout/item_memory_list.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/layout/item_memory_list.xml"
+    }
+]

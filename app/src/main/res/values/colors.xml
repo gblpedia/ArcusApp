@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="yellow">#ffff00</color>
+	<color name="blue">#0000ff</color>
+	<color name="red">#ff0000</color>
+	<color name="black">#000000</color>
+	<color name="white">#ffffff</color>
+
+	<color name="disconnected_device">#989898</color>
+	<color name="connecting_device">#ffc000</color>
+	<color name="connected_device">#3a83e8</color>
+		
+    <color name="label_caption">#2d9bd5</color>
+	<color name="label_color">#598aa1</color>
+    <color name="value_color">#1a58af</color>
+    
+    <color name="tag_count_color">#ab6213</color>
+    
+    <color name="message_background">#a9a9a9</color>
+    <color name="title_bar_color">#283741</color>
+	<color name="title_bar_text_color">#d1d1d1</color>
+
+	<color name="split_line_color">#d2d2d2</color>
+	
+	<color name="selection_background">#1e377d</color>
+		
+</resources>

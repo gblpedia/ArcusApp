@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/raw/beep.wav",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/raw/beep.wav"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/raw/success.wav",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/raw/success.wav"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/raw/fail.wav",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/raw/fail.wav"
+    }
+]

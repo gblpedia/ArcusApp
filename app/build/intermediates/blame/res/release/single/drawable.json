@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/option_normal.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/option_normal.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/option_disabled.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/option_disabled.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/ic_connected_logo.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/ic_connected_logo.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/option_pressed.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/option_pressed.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/ic_disconnected_logo.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/ic_disconnected_logo.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/option_btn_selector.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/option_btn_selector.xml"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/ic_connecting_logo.png",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/ic_connecting_logo.png"
+    },
+    {
+        "merged": "/Users/Gabriel/Workspace/Android/ArcusApp/app/build/intermediates/res/merged/release/drawable/border.xml",
+        "source": "/Users/Gabriel/Workspace/Android/ArcusApp/app/src/main/res/drawable/border.xml"
+    }
+]
