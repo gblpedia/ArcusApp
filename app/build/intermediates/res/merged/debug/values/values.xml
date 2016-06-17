@@ -83,11 +83,12 @@
     <string name="admin_password_dialog">Enter Admin Mode</string>
     <string name="alert_end_of_list">Reach End of List, Start at Beginning</string>
     <string name="app_name">Arcus APP</string>
-    <string name="arcus_account">nlb</string>
-    <string name="arcus_location">Library</string>
+    <string name="arcus_account">dsta</string>
+    <string name="arcus_location">IRC</string>
     <string name="arcus_publish_address">listener.server.arcus</string>
-    <string name="arcus_server_address">stomp://nlb.adilamglobal.com</string>
+    <string name="arcus_server_address">stomp://dsta.adilamglobal.com</string>
     <string name="arucs_station_id">Handheld 1</string>
+    <string name="ascii">Ascii</string>
     <string name="auto_detect">Auto Detect</string>
     <string name="auto_detect2">Auto Detect(Ex)</string>
     <string name="bank">Bank</string>

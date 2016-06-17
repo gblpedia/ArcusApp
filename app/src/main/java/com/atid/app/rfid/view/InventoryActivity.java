@@ -107,6 +107,7 @@ public class InventoryActivity extends ActionActivity implements OnCheckedChange
 	private CheckBox chkDisplayPc;
 	private CheckBox chkContinuousMode;
 	private CheckBox chkReportRssi;
+	private CheckBox chkShowAscii;
 
 	private TextView txtCount;
 	private Button btnAction;
@@ -120,6 +121,7 @@ public class InventoryActivity extends ActionActivity implements OnCheckedChange
 	private MenuItem mnuLockMemory;
 
 	private boolean mIsReportRssi;
+    private boolean mIsShowAscii;
 
 	private Thread mThread;
 	private boolean mIsAliveThread;
@@ -138,6 +140,7 @@ public class InventoryActivity extends ActionActivity implements OnCheckedChange
 		mView = R.layout.activity_inventory;
 
 		mIsReportRssi = false;
+        mIsShowAscii = true;
 
 		mThread = null;
 		mIsAliveThread = false;
@@ -176,6 +179,10 @@ public class InventoryActivity extends ActionActivity implements OnCheckedChange
 		case R.id.report_rssi:
 			adpTags.setVisibleRssi(chkReportRssi.isChecked());
 			break;
+
+        case R.id.showAscii:
+            adpTags.setShowAscii(chkShowAscii.isChecked());
+            break;
 		}
 	}
 
@@ -417,6 +424,10 @@ public class InventoryActivity extends ActionActivity implements OnCheckedChange
 		chkReportRssi = (CheckBox) findViewById(R.id.report_rssi);
 		chkReportRssi.setOnCheckedChangeListener(this);
 
+		// Display Ascii Check Box
+        chkShowAscii = (CheckBox) findViewById(R.id.showAscii);
+        chkShowAscii.setOnCheckedChangeListener(this);
+
 		// Tag Count
 		txtCount = (TextView) findViewById(R.id.tag_count);
 
@@ -507,8 +518,10 @@ public class InventoryActivity extends ActionActivity implements OnCheckedChange
 		chkDisplayPc.setChecked(GlobalInfo.isDisplayPc());
 		chkContinuousMode.setChecked(GlobalInfo.isContinuousMode());
 		chkReportRssi.setChecked(mIsReportRssi);
+        chkShowAscii.setChecked(mIsShowAscii);
 		adpTags.setDisplayPc(GlobalInfo.isContinuousMode());
 		adpTags.setVisibleRssi(chkReportRssi.isChecked());
+        adpTags.setShowAscii(chkShowAscii.isChecked());
 
 		enableWidgets(true);
 

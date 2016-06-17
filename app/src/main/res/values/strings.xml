@@ -157,6 +157,7 @@
     <string name="toast_network_failed">Network connection has problem!</string>
     <string name="toast_uploading_failed">Uploading Failed!</string>
     <string name="progress_uploading">Uploading...</string>
+    <string name="ascii">Ascii</string>
 
     <!-- Arcus Cloud-->
     <string name="arcus_server_address">stomp://dsta.adilamglobal.com</string>

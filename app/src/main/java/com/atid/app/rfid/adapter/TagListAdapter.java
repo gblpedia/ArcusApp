@@ -1,6 +1,7 @@
 package com.atid.app.rfid.adapter;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -22,6 +23,7 @@ public class TagListAdapter extends BaseAdapter {
 	public static final int PC_LEN = 4;
 	private static final int UPDATE_TIME = 500;
 
+
 	// ------------------------------------------------------------------------
 	// Member Variable
 	// ------------------------------------------------------------------------
@@ -33,6 +35,7 @@ public class TagListAdapter extends BaseAdapter {
 
 	private boolean mIsDisplayPc;
 	private boolean mIsVisibleRssi;
+	private boolean mIsShowAscii;
 
 	// ------------------------------------------------------------------------
 	// Constructor
@@ -47,8 +50,9 @@ public class TagListAdapter extends BaseAdapter {
 		mList = new ArrayList<TagListItem>();
 		mMap = new HashMap<String, TagListItem>();
 
-		mIsDisplayPc = true;
+		mIsDisplayPc = false;
 		mIsVisibleRssi = false;
+		mIsShowAscii = true;
 	}
 
 	// ------------------------------------------------------------------------
@@ -65,8 +69,17 @@ public class TagListAdapter extends BaseAdapter {
 		return mIsDisplayPc;
 	}
 
+    public boolean isShowAscii() {
+        return mIsShowAscii;
+    }
+
 	public void setDisplayPc(boolean enabled) {
 		mIsDisplayPc = enabled;
+		notifyDataSetChanged();
+	}
+
+	public void setShowAscii(boolean enabled) {
+		mIsShowAscii = enabled;
 		notifyDataSetChanged();
 	}
 
@@ -91,6 +104,17 @@ public class TagListAdapter extends BaseAdapter {
 		} /*else {
 			item.updateTag(rssi);  Gabriel
 		}*/
+	}
+
+	public boolean isExistedItem(String tag) {
+
+		TagListItem item = null;
+		boolean isExisted = false;
+		Log.i(TAG, String.format(Locale.US, "INFO. Existed Item [%s]", tag));
+
+		isExisted = ((item = mMap.get(tag)) == null);
+
+		return isExisted;
 	}
 
 
@@ -136,7 +160,9 @@ public class TagListAdapter extends BaseAdapter {
 		} else {
 			holder = (TagListViewHolder) convertView.getTag();
 		}
-		holder.setItem(mList.get(position), mIsDisplayPc, mIsVisibleRssi);
+
+		holder.setItem(mList.get(position), mIsDisplayPc, mIsVisibleRssi, mIsShowAscii);
+
 
 		return convertView;
 	}
@@ -157,6 +183,90 @@ public class TagListAdapter extends BaseAdapter {
 			mRssi = rssi;
 			mCount = 1;
 		}
+
+
+        public String itemID() {
+            int length = lengthOfItemID(mTag.substring(0, PC_LEN));
+            String itemIdInTag = mTag.substring(PC_LEN, PC_LEN + length);
+
+            return itemIdInTag;
+        }
+
+        private byte[] hexStringToByteArray(String s) {
+            byte[] b = new byte[s.length() / 2];
+            for (int i = 0; i < b.length; i++) {
+                int index = i * 2;
+                int v = Integer.parseInt(s.substring(index, index + 2), 16);
+                b[i] = (byte) v;
+            }
+            return b;
+        }
+
+        private BitSet longToBitSet(long value) {
+            BitSet bits = new BitSet();
+            int index = 0;
+            while (value != 0L) {
+                if (value % 2L != 0) {
+                    bits.set(index);
+                }
+                ++index;
+                value = value >>> 1;
+            }
+            return bits;
+        }
+
+        private long bitsetToLong(BitSet bits) {
+            long value = 0L;
+            for (int i = 0; i < bits.length(); ++i) {
+                value += bits.get(i) ? (1L << i) : 0L;
+            }
+            return value;
+        }
+
+        private BitSet fromByteArray(byte[] bytes) {
+            BitSet bits = new BitSet();
+            for (int i = 0; i < bytes.length * 8; i++) {
+                if ((bytes[bytes.length - i / 8 - 1] & (1 << (i % 8))) > 0) {
+                    bits.set(i);
+                }
+            }
+            return bits;
+        }
+
+
+        private int lengthOfItemID(String pc) {
+            int length = 0;
+            byte[] pcBytes =  hexStringToByteArray(pc.substring(0, PC_LEN));
+            BitSet pcBitSet = fromByteArray(pcBytes);
+            BitSet lenBitSet = pcBitSet.get(11, 16);
+
+            length = (int) bitsetToLong(lenBitSet);
+
+            return length * 4;
+        }
+
+        public String tagInAscii(){
+
+            StringBuilder sb = new StringBuilder();
+            StringBuilder temp = new StringBuilder();
+            String item_id = itemID();
+
+            //49204c6f7665204a617661 split into two characters 49, 20, 4c...
+            for( int i=0; i < item_id.length()-1; i+=2 ){
+
+                //grab the hex in pairs
+                String output = item_id.substring(i, (i + 2));
+                //convert hex to decimal
+                int decimal = Integer.parseInt(output, 16);
+                //convert the decimal to character
+                sb.append((char)decimal);
+
+                temp.append(decimal);
+            }
+            System.out.println("Decimal : " + temp.toString());
+
+            return sb.toString();
+        }
 
 		public void setUserSpace(String data) { mUserSpace = data; }
 
@@ -198,12 +308,20 @@ public class TagListAdapter extends BaseAdapter {
 		}
 
 		public void setItem(TagListItem item, boolean displayPc,
-				boolean visibleRssi) {
-			if (displayPc) {
+				boolean visibleRssi, boolean showAscii) {
+
+            if (showAscii) {
+                txtTag.setText(item.tagInAscii());
+            } else {
+                txtTag.setText(item.getTag().substring(PC_LEN));
+            }
+
+			/*if (displayPc) {
 				txtTag.setText(item.getTag());
 			} else {
 				txtTag.setText(item.getTag().substring(PC_LEN));
-			}
+			}*/
+
 			txtRssi.setVisibility(visibleRssi ? View.VISIBLE : View.GONE);
 			if (visibleRssi) {
 				txtRssi.setText(String.format(Locale.US, "%.1f dB", item.getRssi()));

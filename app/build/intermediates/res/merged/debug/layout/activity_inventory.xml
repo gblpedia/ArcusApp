@@ -98,22 +98,29 @@
 			    android:layout_height="wrap_content"
 			    android:paddingTop="5dp"
 			    android:orientation="horizontal" >
-			    
-			    <TextView
+
+				<CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ascii"
+                    android:id="@+id/showAscii"
+					android:checked="false"
+					android:layout_weight="0.8"/>
+
+				<TextView
 			        android:layout_width="0dp"
 			        android:layout_height="wrap_content"
-			        android:layout_weight="5"
-			        android:layout_gravity="center_vertical"
-			        android:text="@string/power_gain"
+			        android:layout_weight="1.01"
+					android:text="@string/power_gain"
 			        android:textColor="@color/label_color"
 			        android:textSize="16sp" />
-			    
+
 			    <View android:layout_width="5dp" android:layout_height="40sp" />
-			    
+
 			    <Spinner android:id="@+id/power_gain"
 			        android:layout_width="0dp"
 			        android:layout_height="40sp"
-			        android:layout_weight="7"
+			        android:layout_weight="1.44"
 			        android:enabled="false" />
 			    
 			</LinearLayout>
@@ -202,7 +209,7 @@
 	    </LinearLayout>
 	    
 	</ScrollView>
-	
+
 	<View android:id="@+id/report_rssi_line" android:layout_width="fill_parent" android:layout_height="5dp" />
 	
 	<!-- Controls -->
